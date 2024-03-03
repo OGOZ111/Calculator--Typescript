@@ -1,5 +1,7 @@
 # Typescript Calculator Assigment for HBC React23s.
 
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=OGOZ111_Calculator--Typescript)](https://sonarcloud.io/summary/new_code?id=OGOZ111_Calculator--Typescript)
+
 This project is a simple calculator built using TypeScript, JavaScript, and React with Material UI components. It was compilied and packed using Webpack with create-react-app and deployed on Netlify.
 
 ## Features
