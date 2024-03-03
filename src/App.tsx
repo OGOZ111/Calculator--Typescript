@@ -38,8 +38,6 @@ function App() {
     const curr = parseFloat(currentValue);
     const prev = parseFloat(prevValue);
 
-    console.log("curr", curr);
-    console.log("prev", prev);
     let result;
     switch (operation) {
       case "÷":
@@ -55,7 +53,6 @@ function App() {
         result = prev + curr;
         break;
     }
-    console.log("result", result);
     return result;
   };
 
@@ -101,80 +98,83 @@ function App() {
   };
 
   return (
-    <Container maxWidth="sm">
-      <CalculatorBase elevation={3}>
-        <Grid container spacing={1}>
-          <Grid item xs={12}>
-            <OutputContainer data-testid="output">
-              {currentValue}
-            </OutputContainer>
-          </Grid>
-          <Grid item container columnSpacing={1}>
-            <GridOperationButton
-              operation={"AC"}
-              selectOperation={clear}
-              selectedOperation={operation}
-            />
-            <GridOperationButton
-              operation={"C"}
-              selectOperation={del}
-              selectedOperation={operation}
-            />
-            <GridOperationButton
-              operation={"%"}
-              selectOperation={percent}
-              selectedOperation={operation}
-            />
-            <GridOperationButton
-              operation={"÷"}
-              selectOperation={selectOperation}
-              selectedOperation={operation}
-            />
-          </Grid>
-          <Grid item container columnSpacing={1}>
-            <GridDigitButton digit={"7"} enterDigit={setDigit} />
-            <GridDigitButton digit={"8"} enterDigit={setDigit} />
-            <GridDigitButton digit={"9"} enterDigit={setDigit} />
-            <GridOperationButton
-              operation={"*"}
-              selectOperation={selectOperation}
-              selectedOperation={operation}
-            />
-          </Grid>
-          <Grid item container columnSpacing={1}>
-            <GridDigitButton digit={"4"} enterDigit={setDigit} />
-            <GridDigitButton digit={"5"} enterDigit={setDigit} />
-            <GridDigitButton digit={"6"} enterDigit={setDigit} />
-            <GridOperationButton
-              operation={"-"}
-              selectOperation={selectOperation}
-              selectedOperation={operation}
-            />
-          </Grid>
-          <Grid item container columnSpacing={1}>
-            <GridDigitButton digit={"1"} enterDigit={setDigit} />
-            <GridDigitButton digit={"2"} enterDigit={setDigit} />
-            <GridDigitButton digit={"3"} enterDigit={setDigit} />
+    <>
+      <Container maxWidth="sm">
+        <h1>Calculator Typescript React23s</h1>
+        <CalculatorBase elevation={3}>
+          <Grid container spacing={1}>
+            <Grid item xs={12}>
+              <OutputContainer data-testid="output">
+                {currentValue}
+              </OutputContainer>
+            </Grid>
+            <Grid item container columnSpacing={1}>
+              <GridOperationButton
+                operation={"AC"}
+                selectOperation={clear}
+                selectedOperation={operation}
+              />
+              <GridOperationButton
+                operation={"C"}
+                selectOperation={del}
+                selectedOperation={operation}
+              />
+              <GridOperationButton
+                operation={"%"}
+                selectOperation={percent}
+                selectedOperation={operation}
+              />
+              <GridOperationButton
+                operation={"÷"}
+                selectOperation={selectOperation}
+                selectedOperation={operation}
+              />
+            </Grid>
+            <Grid item container columnSpacing={1}>
+              <GridDigitButton digit={"7"} enterDigit={setDigit} />
+              <GridDigitButton digit={"8"} enterDigit={setDigit} />
+              <GridDigitButton digit={"9"} enterDigit={setDigit} />
+              <GridOperationButton
+                operation={"*"}
+                selectOperation={selectOperation}
+                selectedOperation={operation}
+              />
+            </Grid>
+            <Grid item container columnSpacing={1}>
+              <GridDigitButton digit={"4"} enterDigit={setDigit} />
+              <GridDigitButton digit={"5"} enterDigit={setDigit} />
+              <GridDigitButton digit={"6"} enterDigit={setDigit} />
+              <GridOperationButton
+                operation={"-"}
+                selectOperation={selectOperation}
+                selectedOperation={operation}
+              />
+            </Grid>
+            <Grid item container columnSpacing={1}>
+              <GridDigitButton digit={"1"} enterDigit={setDigit} />
+              <GridDigitButton digit={"2"} enterDigit={setDigit} />
+              <GridDigitButton digit={"3"} enterDigit={setDigit} />
 
-            <GridOperationButton
-              operation={"+"}
-              selectOperation={selectOperation}
-              selectedOperation={operation}
-            />
-          </Grid>
-          <Grid item container columnSpacing={1}>
-            <GridDigitButton xs={6} digit={"0"} enterDigit={setDigit} />
-            <GridDigitButton digit={"."} enterDigit={setDigit} />
+              <GridOperationButton
+                operation={"+"}
+                selectOperation={selectOperation}
+                selectedOperation={operation}
+              />
+            </Grid>
+            <Grid item container columnSpacing={1}>
+              <GridDigitButton xs={6} digit={"0"} enterDigit={setDigit} />
+              <GridDigitButton digit={"."} enterDigit={setDigit} />
 
-            <Grid item xs={3}>
-              <Button fullWidth variant="contained" onClick={equals}>
-                =
-              </Button>
+              <Grid item xs={3}>
+                <Button fullWidth variant="contained" onClick={equals}>
+                  =
+                </Button>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </CalculatorBase>
-    </Container>
+        </CalculatorBase>
+      </Container>
+    </>
   );
 }
 

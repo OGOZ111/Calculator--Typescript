@@ -3,7 +3,7 @@ import { createTheme } from "@mui/material";
 const theme = createTheme({
   palette: {
     mode: "dark",
-    primary: { main: "#fff149" },
+    primary: { main: "#a0d8ef" },
   },
   components: {
     MuiButton: {
