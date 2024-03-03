@@ -1,9 +1,9 @@
-import { Paper, styled, Container, Grid, Button } from "@mui/material";
-import React, { useState } from "react";
-import { GridOperationButton } from "./GridOperationButton";
+import { useState } from "react";
+import { Button, Container, Grid, Paper, styled } from "@mui/material";
 import { GridDigitButton } from "./GridDigitButton";
+import { GridOperationButton } from "./GridOperationButton";
 
-const OutputContainer = styled("div")(({ theme }) => ({
+const OutputContainer = styled(`div`)(({ theme }) => ({
   width: "100%",
   textAlign: "right",
   height: "2em",
@@ -12,22 +12,57 @@ const OutputContainer = styled("div")(({ theme }) => ({
   overflow: "hidden",
 }));
 
-const CalcualatorBase = styled(Paper)(({ theme }) => ({
+const CalculatorBase = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
   marginTop: theme.spacing(4),
   borderRadius: 15,
 }));
 
 function App() {
+  const [prevValue, setPrevValue] = useState("");
   const [currentValue, setCurrentValue] = useState("0");
   const [operation, setOperation] = useState("");
-  const [prevValue, setPrevValue] = useState("");
   const [overwrite, setOverwrite] = useState(true);
 
-  const clear = () => {
-    setCurrentValue("0");
+  const equals = () => {
+    const val = calculate();
+    setCurrentValue(`${val}`);
     setPrevValue("");
     setOperation("");
+    setOverwrite(true);
+  };
+
+  const calculate = () => {
+    if (!prevValue || !operation) return currentValue;
+
+    const curr = parseFloat(currentValue);
+    const prev = parseFloat(prevValue);
+
+    console.log("curr", curr);
+    console.log("prev", prev);
+    let result;
+    switch (operation) {
+      case "÷":
+        result = prev / curr;
+        break;
+      case "*":
+        result = prev * curr;
+        break;
+      case "-":
+        result = prev - curr;
+        break;
+      case "+":
+        result = prev + curr;
+        break;
+    }
+    console.log("result", result);
+    return result;
+  };
+
+  const clear = () => {
+    setPrevValue("");
+    setOperation("");
+    setCurrentValue("0");
     setOverwrite(true);
   };
 
@@ -41,8 +76,16 @@ function App() {
     setCurrentValue((curr / 100).toString());
   };
 
-  const selectOpperation = (operation: string) => {
-    setOperation(operation);
+  const selectOperation = (x: string) => {
+    if (prevValue) {
+      const val = calculate();
+      setCurrentValue(`${val}`);
+      setPrevValue(`${val}`);
+    } else {
+      setPrevValue(currentValue);
+    }
+    setOperation(x);
+    setOverwrite(true);
   };
 
   const setDigit = (digit: string) => {
@@ -56,76 +99,81 @@ function App() {
     }
     setOverwrite(false);
   };
+
   return (
     <Container maxWidth="sm">
-      <CalcualatorBase elevation={3}>
+      <CalculatorBase elevation={3}>
         <Grid container spacing={1}>
           <Grid item xs={12}>
-            <OutputContainer>{currentValue}</OutputContainer>
+            <OutputContainer data-testid="output">
+              {currentValue}
+            </OutputContainer>
           </Grid>
           <Grid item container columnSpacing={1}>
             <GridOperationButton
-              operation="AC"
+              operation={"AC"}
               selectOperation={clear}
               selectedOperation={operation}
             />
             <GridOperationButton
-              operation="C"
+              operation={"C"}
               selectOperation={del}
               selectedOperation={operation}
             />
             <GridOperationButton
-              operation="%"
+              operation={"%"}
               selectOperation={percent}
               selectedOperation={operation}
             />
             <GridOperationButton
-              operation="÷"
-              selectOperation={selectOpperation}
+              operation={"÷"}
+              selectOperation={selectOperation}
               selectedOperation={operation}
             />
           </Grid>
           <Grid item container columnSpacing={1}>
-            <GridDigitButton digit="7" enterDigit={setDigit} />
-            <GridDigitButton digit="8" enterDigit={setDigit} />
-            <GridDigitButton digit="9" enterDigit={setDigit} />
+            <GridDigitButton digit={"7"} enterDigit={setDigit} />
+            <GridDigitButton digit={"8"} enterDigit={setDigit} />
+            <GridDigitButton digit={"9"} enterDigit={setDigit} />
             <GridOperationButton
-              operation="*"
-              selectOperation={selectOpperation}
+              operation={"*"}
+              selectOperation={selectOperation}
               selectedOperation={operation}
             />
           </Grid>
           <Grid item container columnSpacing={1}>
-            <GridDigitButton digit="4" enterDigit={setDigit} />
-            <GridDigitButton digit="5" enterDigit={setDigit} />
-            <GridDigitButton digit="6" enterDigit={setDigit} />
+            <GridDigitButton digit={"4"} enterDigit={setDigit} />
+            <GridDigitButton digit={"5"} enterDigit={setDigit} />
+            <GridDigitButton digit={"6"} enterDigit={setDigit} />
             <GridOperationButton
-              operation="-"
-              selectOperation={selectOpperation}
+              operation={"-"}
+              selectOperation={selectOperation}
               selectedOperation={operation}
             />
           </Grid>
           <Grid item container columnSpacing={1}>
-            <GridDigitButton digit="1" enterDigit={setDigit} />
-            <GridDigitButton digit="2" enterDigit={setDigit} />
-            <GridDigitButton digit="3" enterDigit={setDigit} />
+            <GridDigitButton digit={"1"} enterDigit={setDigit} />
+            <GridDigitButton digit={"2"} enterDigit={setDigit} />
+            <GridDigitButton digit={"3"} enterDigit={setDigit} />
+
             <GridOperationButton
-              operation="+"
-              selectOperation={selectOpperation}
+              operation={"+"}
+              selectOperation={selectOperation}
               selectedOperation={operation}
             />
           </Grid>
           <Grid item container columnSpacing={1}>
-            <GridDigitButton digit="0" enterDigit={setDigit} xs={6} />
-            <GridDigitButton digit="." enterDigit={setDigit} />
+            <GridDigitButton xs={6} digit={"0"} enterDigit={setDigit} />
+            <GridDigitButton digit={"."} enterDigit={setDigit} />
+
             <Grid item xs={3}>
-              <Button fullWidth variant="contained">
+              <Button fullWidth variant="contained" onClick={equals}>
                 =
               </Button>
             </Grid>
           </Grid>
         </Grid>
-      </CalcualatorBase>
+      </CalculatorBase>
     </Container>
   );
 }
