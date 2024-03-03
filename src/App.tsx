@@ -24,6 +24,13 @@ function App() {
   const [prevValue, setPrevValue] = useState("");
   const [overwrite, setOverwrite] = useState(true);
 
+  const clear = () => {
+    setCurrentValue("0");
+    setPrevValue("");
+    setOperation("");
+    setOverwrite(true);
+  };
+
   const selectOpperation = (operation: string) => {
     setOperation(operation);
   };
