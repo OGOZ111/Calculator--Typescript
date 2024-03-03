@@ -3,6 +3,7 @@ import { Button, Container, Grid, Paper, styled } from "@mui/material";
 import { GridDigitButton } from "./GridDigitButton";
 import { GridOperationButton } from "./GridOperationButton";
 
+// output container styles
 const OutputContainer = styled(`div`)(({ theme }) => ({
   width: "100%",
   textAlign: "right",
@@ -12,6 +13,7 @@ const OutputContainer = styled(`div`)(({ theme }) => ({
   overflow: "hidden",
 }));
 
+// calculator base styles
 const CalculatorBase = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
   marginTop: theme.spacing(4),
@@ -19,11 +21,13 @@ const CalculatorBase = styled(Paper)(({ theme }) => ({
 }));
 
 function App() {
+  // state variables
   const [prevValue, setPrevValue] = useState("");
   const [currentValue, setCurrentValue] = useState("0");
   const [operation, setOperation] = useState("");
   const [overwrite, setOverwrite] = useState(true);
 
+  // calculator functions
   const equals = () => {
     const val = calculate();
     setCurrentValue(`${val}`);
@@ -33,6 +37,7 @@ function App() {
   };
 
   const calculate = () => {
+    // calculate function for basic operations using a switch.
     if (!prevValue || !operation) return currentValue;
 
     const curr = parseFloat(currentValue);
@@ -57,6 +62,7 @@ function App() {
   };
 
   const clear = () => {
+    // clear function to reset the calculator.
     setPrevValue("");
     setOperation("");
     setCurrentValue("0");
@@ -64,16 +70,19 @@ function App() {
   };
 
   const del = () => {
+    // delete function to remove the last digit.
     setCurrentValue("0");
     setOverwrite(true);
   };
 
   const percent = () => {
+    // percent function to convert the current value to a percentage.
     const curr = parseFloat(currentValue);
     setCurrentValue((curr / 100).toString());
   };
 
   const selectOperation = (x: string) => {
+    // select operation function to set the operation and previous value.
     if (prevValue) {
       const val = calculate();
       setCurrentValue(`${val}`);
@@ -86,6 +95,7 @@ function App() {
   };
 
   const setDigit = (digit: string) => {
+    // set digit function to set the current value, and allowe the use of only 1 decimal point.
     if (currentValue[0] === "0" && digit === "0") return;
     if (currentValue.includes(".") && digit === ".") return;
 
