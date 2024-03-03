@@ -31,6 +31,16 @@ function App() {
     setOverwrite(true);
   };
 
+  const del = () => {
+    setCurrentValue("0");
+    setOverwrite(true);
+  };
+
+  const percent = () => {
+    const curr = parseFloat(currentValue);
+    setCurrentValue((curr / 100).toString());
+  };
+
   const selectOpperation = (operation: string) => {
     setOperation(operation);
   };
@@ -56,17 +66,17 @@ function App() {
           <Grid item container columnSpacing={1}>
             <GridOperationButton
               operation="AC"
-              selectOperation={selectOpperation}
+              selectOperation={clear}
               selectedOperation={operation}
             />
             <GridOperationButton
               operation="C"
-              selectOperation={selectOpperation}
+              selectOperation={del}
               selectedOperation={operation}
             />
             <GridOperationButton
               operation="%"
-              selectOperation={selectOpperation}
+              selectOperation={percent}
               selectedOperation={operation}
             />
             <GridOperationButton
